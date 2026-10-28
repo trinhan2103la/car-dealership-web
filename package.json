@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "Public website (Next.js) + Admin portal (React) - pnpm monorepo",
+  "packageManager": "pnpm@10.11.1",
   "scripts": {
     "prepare": "husky"
   },
