@@ -28,5 +28,6 @@ pnpm install
 Toàn hệ (DB, core, bff, web) chạy bằng Docker Compose từ repo `car-dealership-core` (`deploy/docker-compose.yml`).
 
 ## Tài liệu
+sadsadsad
 
 Thiết kế/ERD/ADR/roadmap: spec `car-dealership-platform` trong Kiro. Source code là nguồn sự thật cuối cùng.
