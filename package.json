@@ -5,11 +5,19 @@
   "description": "Public website (Next.js) + Admin portal (React) - pnpm monorepo",
   "packageManager": "pnpm@10.11.1",
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "sync-openapi": "node scripts/sync-openapi.mjs",
+    "generate:types": "turbo run generate --filter=@car-dealership/core-api-types"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "turbo": "2.11.10"
   }
 }

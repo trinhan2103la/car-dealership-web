@@ -1,8 +1,6 @@
 name: ci
 
-# Ngày 19 (ADR-011): CI riêng cho repo web (pnpm monorepo).
-# Hiện web mới có khung; apps/public-web (Ngày 113+) và apps/admin-portal (Ngày 140+)
-# chưa tồn tại, nên bước build/test/lint 2 frontend bật dần khi có app.
+# CI riêng cho repo web (pnpm monorepo).
 on:
   pull_request:
     branches: [main]
@@ -24,21 +22,12 @@ jobs:
           cache: pnpm
       - name: Install
         run: pnpm install --frozen-lockfile
-      # Bật khi có app frontend (có script tương ứng ở root monorepo).
-      - name: Typecheck
-        if: ${{ hashFiles('apps/**/tsconfig.json') != '' }}
-        run: pnpm -r typecheck
-      - name: Lint
-        if: ${{ hashFiles('eslint.config.js', 'eslint.config.mjs', '.eslintrc.cjs') != '' }}
-        run: pnpm -r lint
-      - name: Build
-        if: ${{ hashFiles('apps/**/package.json') != '' }}
-        run: pnpm -r build
-      - name: Test
-        if: ${{ hashFiles('apps/**/package.json') != '' }}
-        run: pnpm -r test
+      # Turborepo điều phối task theo đồ thị phụ thuộc (turbo.json). Package không có script nào thì turbo bỏ qua,
+      # nên không cần điều kiện hashFiles như trước. Cache cục bộ trong job; muốn cache xuyên lần chạy thì bật Remote Cache.
+      - name: Typecheck, lint, test, build
+        run: pnpm turbo run typecheck lint test build
 
-  # Ngày 20 (Req 21, 29.2): chặn secret lộ, lỗ hổng npm mức high, và scope @volo/ (commercial).
+  # Chặn secret lộ, lỗ hổng npm mức high, và scope @volo/ (commercial).
   security:
     runs-on: ubuntu-latest
     permissions:
@@ -69,6 +58,22 @@ jobs:
             exit 1
           fi
 
+  # Kiểu TypeScript phải khớp bản OpenAPI vendored. Sửa openapi.json mà quên sinh lại -> đỏ.
+  openapi-types-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Sinh lại kiểu từ openapi.json vendored
+        run: pnpm generate:types
+      - name: Kiểu sinh ra phải khớp bản đã commit
+        run: git diff --exit-code -- packages/core-api-types
   commitlint:
     runs-on: ubuntu-latest
     steps:
