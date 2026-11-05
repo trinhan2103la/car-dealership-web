@@ -2,9 +2,10 @@
 
 Frontend của dự án **Car Dealership Platform**, là một pnpm monorepo gồm:
 
-- `apps/public-web` — Public website (Next.js 16) — _thêm ở Ngày 113+_
-- `apps/admin-portal` — Admin portal (Vite + React) — _thêm ở Ngày 140+_
-- `packages/core-api-types` — kiểu TypeScript sinh từ OpenAPI của core (vendored) — _thêm ở Ngày 39+_
+- `apps/admin-portal` — Admin portal (Vite + React + TanStack Router/Query)
+- `apps/public-web` — Public website (Next.js) — _chưa thêm_
+- `packages/ui` — UI dùng chung (shadcn/ui + component viết tay)
+- `packages/core-api-types` — kiểu TypeScript sinh từ OpenAPI của core (vendored)
 
 ## Hệ 3 repo
 
@@ -20,13 +21,11 @@ car-dealership-core\
 
 ```powershell
 pnpm install
-# các app sẽ được thêm ở các ngày sau; khi có:
-# pnpm --filter public-web dev
-# pnpm --filter admin-portal dev
+pnpm turbo run dev --filter=admin-portal   # Admin portal, cần BFF đang chạy
 ```
 
 Toàn hệ (DB, core, bff, web) chạy bằng Docker Compose từ repo `car-dealership-core` (`deploy/docker-compose.yml`).
 
 ## Tài liệu
 
-Thiết kế/ERD/ADR/roadmap: spec `car-dealership-platform` trong Kiro. Source code là nguồn sự thật cuối cùng.
+Thiết kế, ERD và ADR được quản lý riêng; source code là nguồn sự thật cuối cùng.
