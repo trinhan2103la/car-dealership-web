@@ -1,0 +1,3 @@
+@import "@car-dealership/ui/globals.css";
+/* Tailwind không tự quét packages/ui (ngoài thư mục app) nên phải khai báo thêm nguồn này. */
+@source "../../../packages/ui/src";
