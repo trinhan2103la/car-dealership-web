@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@car-dealership/ui/components",
+    "utils": "@car-dealership/ui/lib/utils",
+    "hooks": "@car-dealership/ui/hooks",
+    "lib": "@car-dealership/ui/lib",
+    "ui": "@car-dealership/ui/components"
+  }
+}

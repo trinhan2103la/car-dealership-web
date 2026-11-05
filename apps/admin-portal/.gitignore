@@ -1,0 +1,5 @@
+node_modules
+dist
+*.tsbuildinfo
+# Cache của @tanstack/router-plugin. routeTree.gen.ts thì COMMIT (TanStack khuyến nghị), chỉ không sửa tay.
+.tanstack

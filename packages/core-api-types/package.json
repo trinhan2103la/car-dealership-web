@@ -1,0 +1,20 @@
+{
+  "name": "@car-dealership/core-api-types",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Kieu TypeScript sinh tu OpenAPI cua Core_API (ban vendored)",
+  "types": "./src/schema.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/schema.d.ts"
+    }
+  },
+  "scripts": {
+    "generate": "openapi-typescript openapi/openapi.json -o src/schema.d.ts"
+  },
+  "devDependencies": {
+    "openapi-typescript": "7.10.1",
+    "typescript": "5.9.3"
+  }
+}
